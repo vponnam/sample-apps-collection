@@ -1,0 +1,9 @@
+---
+applications:
+- name: simple-request-viewer
+  memory: 20M
+  disk_quota: 32M
+  buildpacks: [go_buildpack]
+  command: main
+  env:
+    GOPACKAGENAME: main
