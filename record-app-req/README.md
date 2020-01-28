@@ -1,9 +1,10 @@
-## This is a sample application that will help to analyze http request headers and body
+## This is a sample application that will help to analyze received http request headers and body
 This sample application will log all the request headers and body that the application receives from an external client in the application logs as well as responding the same to the web request.
 
 ### Deploying to cloud foundry
-git clone && cd record-app-req
-cf push
+
+    git clone https://github.com/vponnam/sample-apps-collection.git && cd sample-apps-collection/record-app-req && cf push
+
 
 ## Using the app to inspect a client request
 The application will basically capture/log any request information(headers and body) received by the app.  
@@ -32,10 +33,9 @@ Tip: `cf logs simple-request-viewer --recent`
 ```
 
 ## Use cases where this type of analysis is helpful
-- You as as operator or developer wants to capture the exact request that was sent by external client for troubleshooting purposes.
-- Wanted to check if all the expected request headers are made it to the app after passing through intermediate network hops/load-balancers.
-- mTLS related triage is a good example where ideally if the mTLS is successful between an external client and PCF, the app is PCF should see the client_certificate in [XFCC header](https://docs.cloudfoundry.org/concepts/http-routing.html#forward-client-cert) for further validation purposes.
-
+- You as an operator or developer wants to capture the exact request that was sent by external client for troubleshooting purposes.
+- Wanted to check if all the expected request headers are making it to the app after passing through those intermediate network hops/load-balancers.
+- mTLS related triage is a good example where ideally if the mTLS is successful between an external client and PCF, the app in PCF should see the client_certificate in [XFCC header](https://docs.cloudfoundry.org/concepts/http-routing.html#forward-client-cert) for further validation purposes.
 
 ## mTLS troubleshooting:
 Step 1:  
@@ -48,7 +48,7 @@ Initiate a client side mTLS call to your PCF app, below is an example.
 curl https://app-url --cert=cert.pem --key=key.pem
 ```
 
-Above curl will work as long the provided certs are issue by a well known CA, else you have 2 options:
+Above curl will work as long the provided certs are issue by a well known CA, else you can choose one of the below 2 options:
 1. Adding you internal CA+intermediate chain to bosh trusted certs section as documented [here](https://docs.pivotal.io/pivotalcf/2-4/customizing/trusted-certificates.html).
 2. Pass the ca that issued your certs as below.
 ```
